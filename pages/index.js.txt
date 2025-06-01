@@ -1,0 +1,11 @@
+export default function Home() {
+  return (
+    <div style={{ padding: "2rem", fontFamily: "sans-serif", textAlign: "center" }}>
+      <h1>Bienvenue sur Leads Auto</h1>
+      <p>Formulaire pour générer votre devis automobile</p>
+      <a href="/formulaire" style={{ display: "inline-block", marginTop: "1rem", padding: "0.5rem 1rem", background: "#0070f3", color: "white", textDecoration: "none", borderRadius: "5px" }}>
+        Accéder au formulaire
+      </a>
+    </div>
+  );
+}
