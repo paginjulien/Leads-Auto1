@@ -1,60 +1,59 @@
-// pages/api/ajout-lead.js
+// 🔧 API Route mise à jour pour Airtable (avec champs étendus)
 import Airtable from 'airtable';
-
-const base = new Airtable({ apiKey: 'YOUR_SECRET_API_TOKEN' }).base('app9TomV9AHRcgbEb');
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Méthode non autorisée' });
   }
 
-  const {
-    nom,
-    prenom,
-    telephone,
-    email,
-    dateNaissance,
-    adresse,
-    datePermis,
-    numeroChassis,
-    dateMiseCirculation,
-    carburant,
-    kilometrage,
-    sinistres,
-    remarque,
-    source,
-    provenance,
-    documentUrl
-  } = req.body;
+  if (!process.env.AIRTABLE_API_KEY) {
+    return res.status(500).json({ success: false, error: 'Clé API manquante' });
+  }
+
+  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base('Incendie');
 
   try {
-    const created = await base('LEADS AUTO').create([
-      {
-        fields: {
-          "Nom": nom,
-          "Prénom": prenom,
-          "Téléphone": telephone,
-          "Email": email,
-          "Date de naissance": dateNaissance,
-          "Adresse": adresse,
-          "Date permis": datePermis,
-          "Numéro de châssis": numeroChassis,
-          "Date de mise en circulation": dateMiseCirculation,
-          "Carburant": carburant,
-          "Kilométrage annuel": kilometrage,
-          "Sinistres": sinistres,
-          "Remarque": remarque,
-          "Source": source,
-          "Provenance": provenance,
-          "Date d’entrée": new Date().toISOString().split('T')[0],
-          "Document": documentUrl ? [{ url: documentUrl }] : []
-        }
-      }
-    ]);
+    const {
+      nom, prenom, datenaissance, adresse, email, telephone, numero,
+      adresseBien, typeHabitation, typeConstruction, maisonPassive,
+      descriptionHabitation, facades, facademoins5m, estimationContenu,
+      sauna, piscine, dressing, chaufferie, bureau, veranda,
+      autrePiece, salleJeu, cave, garage, chambres, fichier
+    } = req.body;
 
-    return res.status(200).json({ success: true, id: created[0].id });
-  } catch (err) {
-    console.error("Erreur lors de la création dans Airtable :", err);
-    return res.status(500).json({ success: false, message: 'Erreur serveur' });
+    const record = await base.create({
+      "Nom": nom,
+      "Prénom": prenom,
+      "Date de naissance": datenaissance,
+      "Adresse": adresse,
+      "Numéro": numero,
+      "Email": email,
+      "Téléphone": telephone,
+      "Adresse du bien": adresseBien,
+      "Type d'habitation": typeHabitation,
+      "Type de construction": typeConstruction,
+      "Maison passive": maisonPassive,
+      "Description de l'habitation": descriptionHabitation,
+      "Façades": facades,
+      "Façade à moins de 5m": facademoins5m,
+      "Estimation du contenu": estimationContenu,
+      "Sauna": sauna,
+      "Piscine": piscine,
+      "Dressing": dressing,
+      "Chaufferie": chaufferie,
+      "Bureau": bureau,
+      "Véranda": veranda,
+      "Autre pièce": autrePiece,
+      "Salle de jeu": salleJeu,
+      "Cave": cave,
+      "Garage (places)": garage,
+      "nombre de chambre": String(chambres),
+      "Fichier": fichier ? [{ url: fichier }] : []
+    });
+
+    return res.status(200).json({ success: true, id: record.id });
+  } catch (error) {
+    console.error("💥 ERREUR /api/incendie:", error.message);
+    return res.status(500).json({ success: false, error: error.message });
   }
 }
