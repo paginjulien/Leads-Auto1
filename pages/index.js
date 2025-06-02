@@ -1,15 +1,8 @@
-// pages/incendie.tsx
-import Head from 'next/head';
-import IncendieForm from '../components/IncendieForm';
-
-export default function IncendiePage() {
+export default function Home() {
   return (
-    <>
-      <Head>
-        <title>Formulaire Incendie</title>
-        <meta name="description" content="Demande d'assurance incendie" />
-      </Head>
-      <IncendieForm />
-    </>
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <h1>Bienvenue sur le formulaire JS-INNOV.IA</h1>
+      <p><a href="/incendie" style={{ color: "#6b123b", fontWeight: "bold" }}>Accéder au formulaire incendie →</a></p>
+    </div>
   );
 }
