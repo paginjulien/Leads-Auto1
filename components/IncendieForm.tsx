@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function IncendiePage() {
   const initialFormData = {
@@ -48,40 +48,44 @@ export default function IncendiePage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white relative">
+    <div className="relative min-h-screen bg-white overflow-hidden">
       <Head>
         <title>Assurance Incendie Mons & Dour – Formulaire rapide | JS-INNOV.IA</title>
-        <meta name="description" content="Formulaire d’assurance incendie en ligne pour les habitants de Mons, Dour et du Hainaut. JS-INNOV.IA, courtier local à votre écoute." />
+        <meta name="description" content="Formulaire d’assurance incendie pour les habitants de Mons, Dour et du Hainaut." />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.tonsite.com/incendie" />
       </Head>
 
-      {/* Logo PV en arrière-plan */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
-        <img src="/pv-logo.png" alt="Logo PV" className="w-96 h-96 object-contain" />
+      {/* Fond avec logo PV */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none z-0">
+        <img src="/pv-logo.png" alt="Logo PV" className="w-[500px] h-[500px] object-contain" />
       </div>
 
-      <main className="z-10 w-full max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl animate-fade-in">
-        <h1 className="text-xl font-bold text-pv mb-6 text-center">Formulaire Assurance Incendie</h1>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
-          <input type="text" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required className="border p-2 rounded" />
-          <input type="text" name="prenom" placeholder="Prénom" value={formData.prenom} onChange={handleChange} required className="border p-2 rounded" />
-          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="border p-2 rounded" />
-          <input type="tel" name="telephone" placeholder="Téléphone" value={formData.telephone} onChange={handleChange} required className="border p-2 rounded" />
-          <input type="text" name="adresse" placeholder="Adresse" value={formData.adresse} onChange={handleChange} required className="border p-2 rounded" />
-          <input type="text" name="codePostal" placeholder="Code Postal" value={formData.codePostal} onChange={handleChange} required className="border p-2 rounded" />
-          <input type="text" name="ville" placeholder="Ville" value={formData.ville} onChange={handleChange} required className="border p-2 rounded" />
+      {/* Modal Formulaire */}
+      <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-10 flex items-center justify-center px-4">
+        <div className="bg-white rounded-xl shadow-2xl w-full max-w-xl p-6 animate-fade-in">
+          <h1 className="text-xl font-bold text-pv mb-6 text-center">Formulaire Assurance Incendie</h1>
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+            <input type="text" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required className="border p-2 rounded" />
+            <input type="text" name="prenom" placeholder="Prénom" value={formData.prenom} onChange={handleChange} required className="border p-2 rounded" />
+            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="border p-2 rounded" />
+            <input type="tel" name="telephone" placeholder="Téléphone" value={formData.telephone} onChange={handleChange} required className="border p-2 rounded" />
+            <input type="text" name="adresse" placeholder="Adresse" value={formData.adresse} onChange={handleChange} required className="border p-2 rounded" />
+            <input type="text" name="codePostal" placeholder="Code Postal" value={formData.codePostal} onChange={handleChange} required className="border p-2 rounded" />
+            <input type="text" name="ville" placeholder="Ville" value={formData.ville} onChange={handleChange} required className="border p-2 rounded" />
 
-          <button type="submit" disabled={isSubmitting} className="bg-pv text-white py-2 px-4 rounded hover:bg-pv-dark">
-            {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
-          </button>
-        </form>
-        {confirmationMessage && (
-          <p className="mt-4 text-center text-sm font-medium text-pv animate-pulse">{confirmationMessage}</p>
-        )}
-      </main>
+            <button type="submit" disabled={isSubmitting} className="bg-pv text-white py-2 px-4 rounded hover:bg-pv-dark">
+              {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
+            </button>
+          </form>
+          {confirmationMessage && (
+            <p className="mt-4 text-center text-sm font-medium text-pv animate-pulse">{confirmationMessage}</p>
+          )}
+        </div>
+      </div>
 
-      <footer className="bg-gray-900 text-gray-300 text-center text-xs py-6 w-full mt-4">
+      {/* Footer */}
+      <footer className="absolute bottom-0 left-0 w-full bg-gray-900 text-gray-300 text-center text-xs py-6">
         <p>Application créée par <span className="text-white font-semibold">JS-INNOV.IA</span> (non affiliée aux assurances)</p>
         <p>Julien Pagin est le seul référencier autorisé pour cette application.</p>
         <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/mentions-legales" className="underline text-gray-400">Mentions légales</a></p>
@@ -89,4 +93,3 @@ export default function IncendiePage() {
     </div>
   );
 }
-
