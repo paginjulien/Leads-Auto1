@@ -58,10 +58,11 @@ export default function IncendiePage() {
 
       <div className="relative z-10 w-full max-w-xl bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl shadow-2xl overflow-hidden">
         {/* VIDÉO RONDE À LA PLACE DE LA BANNIÈRE */}
-        <div className="w-full flex justify-center py-4">
+        <div className="w-full flex flex-col items-center justify-center pt-6">
           <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg border-4 border-white">
             <video src="/video-jingle.mp4" autoPlay loop muted className="w-full h-full object-cover" />
           </div>
+          <h2 className="mt-4 text-lg font-bold text-pv">Assurance incendie – votre DEVIS GRATUIT !</h2>
         </div>
 
         {/* LOGO PV EN FOND */}
@@ -105,3 +106,4 @@ export default function IncendiePage() {
     </div>
   );
 }
+
