@@ -1,4 +1,4 @@
-// 🔧 Formulaire Incendie étendu avec mise en page stylée et branding P&V
+// 🔧 Formulaire Incendie avec mise en page stylée, centrée, et branding P&V
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ export default function IncendieForm() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window._sentryDebugIds = {};
+      (window as any)._sentryDebugIds = {};
     }
   }, []);
 
@@ -39,23 +39,24 @@ export default function IncendieForm() {
   const inputBaseClass = "border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-pv text-sm text-pv";
 
   return (
-    <div className="relative min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="relative min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4">
       {/* Logo P&V en arrière-plan */}
       <div className="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
         <Image src={LogoPV} alt="Logo P&V" width={300} height={300} />
       </div>
 
-      <div className="relative z-10 max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 space-y-6">
-        <h1 className="text-2xl font-bold text-pv text-center">Formulaire Assurance Incendie – Mons / Dour</h1>
+      <div className="relative z-10 w-full max-w-4xl bg-white rounded-xl shadow-2xl p-8 space-y-6">
+        <h1 className="text-3xl font-bold text-pv text-center">Formulaire Assurance Incendie – Mons / Dour</h1>
 
-        <p className="text-sm text-gray-700 leading-relaxed">
-          Vous habitez <strong>Mons</strong> ou <strong>Dour</strong> ? <strong>JS-INNOV.IA</strong> vous accompagne avec une solution d’assurance incendie simple et rapide.<br />
-          En tant que courtier digital et local, nous vous offrons un service avec un accompagnement humain.
-        </p>
-
-        <p className="text-sm text-gray-700 leading-relaxed">
-          Remplissez le formulaire pour recevoir un devis personnalisé. Nos experts du Hainaut sont disponibles pour vous conseiller et vous protéger efficacement.
-        </p>
+        <div className="text-center text-gray-700 text-sm space-y-2">
+          <p>
+            Vous habitez <strong>Mons</strong> ou <strong>Dour</strong> ? <strong>JS-INNOV.IA</strong> vous accompagne avec une solution d’assurance incendie simple et rapide.<br />
+            En tant que courtier digital et local, nous vous offrons un service avec un accompagnement humain.
+          </p>
+          <p>
+            Remplissez le formulaire pour recevoir un devis personnalisé. Nos experts du Hainaut sont disponibles pour vous conseiller et vous protéger efficacement.
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {step === 1 && (
