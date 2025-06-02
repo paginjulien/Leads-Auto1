@@ -1,5 +1,5 @@
 // 🔧 Formulaire Incendie avec mise en page stylée, centrée, et branding P&V
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import LogoPV from '../public/pv-logo.png';
@@ -13,12 +13,6 @@ export default function IncendieForm() {
     sauna: false, piscine: false, dressing: false, chaufferie: false, bureau: false, veranda: false,
     autrePiece: false, salleJeu: false, cave: false, garage: '', chambres: '', fichier: ''
   });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      (window as any)._sentryDebugIds = {};
-    }
-  }, []);
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
