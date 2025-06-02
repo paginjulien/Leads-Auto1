@@ -68,7 +68,7 @@ export default function IncendiePage() {
           <img src="/pv-logo.png" alt="Logo PV" className="w-[400px] h-[400px] object-contain" />
         </div>
 
-        <div className="relative z-10 p-6">
+        <div className="relative z-10 p-6 pb-12">
           <h1 className="text-xl font-bold text-pv mb-6 text-center">Formulaire Assurance Incendie</h1>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
             <input type="text" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
@@ -88,10 +88,21 @@ export default function IncendiePage() {
             <p className="mt-4 text-center text-sm font-medium text-pv animate-pulse">{confirmationMessage}</p>
           )}
 
-          <div className="text-center text-xs text-pv mt-6">
-            <p>Application créée par <strong>JS-INNOV.IA</strong> (non affiliée aux assurances)</p>
+          <div className="mt-6 text-center text-sm text-gray-700 leading-relaxed">
+            <p className="font-semibold text-pv">Protégez votre habitation à Mons et Dour</p>
+            <p className="mt-1">
+              Vous habitez <strong>Mons</strong> ou <strong>Dour</strong> ? JS-INNOV.IA vous accompagne avec une solution d’assurance incendie simple et rapide.
+              En tant que courtier digital et local, nous vous offrons un service 100% en ligne avec un accompagnement humain.
+            </p>
+            <p className="mt-1">
+              Remplissez le formulaire pour recevoir un devis personnalisé. Nos experts du Hainaut sont disponibles pour vous conseiller et vous protéger efficacement.
+            </p>
+          </div>
+
+          <div className="mt-6 border-t border-pv pt-4 text-center text-xs text-pv">
+            <p>Application créée par <span className="font-semibold text-pv">JS-INNOV.IA</span> (non affiliée aux assurances)</p>
             <p>Julien Pagin est le seul référencier autorisé pour cette application.</p>
-            <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/mentions-legales" className="underline">Mentions légales</a></p>
+            <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/mentions-legales" className="underline text-pv">Mentions légales</a></p>
           </div>
         </div>
       </div>
