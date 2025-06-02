@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import React, { useState } from 'react';
 
 export default function IncendiePage() {
   const initialFormData = {
@@ -58,9 +57,11 @@ export default function IncendiePage() {
       </Head>
 
       <div className="relative z-10 w-full max-w-xl bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl shadow-2xl overflow-hidden">
-        {/* BANNIÈRE EN HAUT DE LA POPUP */}
-        <div className="w-full">
-          <Image src="/banniere-pv.png" alt="Bannière P&V" width={800} height={200} className="w-full object-cover" />
+        {/* VIDÉO RONDE À LA PLACE DE LA BANNIÈRE */}
+        <div className="w-full flex justify-center py-4">
+          <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg border-4 border-white">
+            <video src="/video-jingle.mp4" autoPlay loop muted className="w-full h-full object-cover" />
+          </div>
         </div>
 
         {/* LOGO PV EN FOND */}
@@ -69,7 +70,6 @@ export default function IncendiePage() {
         </div>
 
         <div className="relative z-10 p-6 pb-12">
-          <h1 className="text-xl font-bold text-pv mb-6 text-center">Formulaire Assurance Incendie</h1>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
             <input type="text" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
             <input type="text" name="prenom" placeholder="Prénom" value={formData.prenom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
@@ -89,18 +89,14 @@ export default function IncendiePage() {
           )}
 
           <div className="mt-6 text-center text-sm text-gray-700 leading-relaxed">
-            <p className="font-semibold text-pv">Protégez votre habitation à Mons et Dour</p>
+            <p className="font-semibold text-pv">Je vous accompagne avec une solution d’assurance sur mesure</p>
             <p className="mt-1">
-              Vous habitez <strong>Mons</strong> ou <strong>Dour</strong> ? JS-INNOV.IA vous accompagne avec une solution d’assurance incendie simple et rapide.
-              En tant que courtier digital et local, nous vous offrons un service 100% en ligne avec un accompagnement humain.
-            </p>
-            <p className="mt-1">
-              Remplissez le formulaire pour recevoir un devis personnalisé. Nos experts du Hainaut sont disponibles pour vous conseiller et vous protéger efficacement.
+              Humain et local, un service à votre écoute. Devis et analyse gratuite afin d'optimiser votre budget et vous protéger efficacement.
             </p>
           </div>
 
           <div className="mt-6 border-t border-pv pt-4 text-center text-xs text-pv">
-            <p>Application créée par <span className="font-semibold text-pv">JS-INNOV.IA</span> (non affiliée aux assurances)</p>
+            <p>Application créée par <span className="font-semibold text-pv">JS-INNOV.IA</span></p>
             <p>Julien Pagin est le seul référencier autorisé pour cette application.</p>
             <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/mentions-legales" className="underline text-pv">Mentions légales</a></p>
           </div>
