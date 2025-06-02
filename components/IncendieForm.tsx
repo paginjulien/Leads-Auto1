@@ -1,41 +1,115 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
-export default function Index() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
+interface FormData {
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: string;
+  adresse: string;
+  codePostal: string;
+  ville: string;
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.replace('/incendie');
-    }, 2000);
+const IncendieForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    nom: '',
+    prenom: '',
+    email: '',
+    telephone: '',
+    adresse: '',
+    codePostal: '',
+    ville: '',
+  });
 
-    return () => clearTimeout(timer);
-  }, [router]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Logique d'envoi du formulaire
+    console.log('Données du formulaire:', formData);
+  };
 
   return (
-    <div className="flex flex-col min-h-screen justify-between items-center bg-white">
-      {/* Haut de page réservé à Julien Pagin */}
-      <header className="bg-pv text-white text-center py-4 shadow-md w-full">
-        <h1 className="text-lg font-semibold">Julien Pagin</h1>
-        <p className="text-sm">Votre conseiller dédié – Spécialiste assurances Mons & Dour</p>
-      </header>
-
-      {/* Message de chargement */}
-      <main className="flex-grow flex items-center justify-center">
-        {loading && (
-          <div className="text-center animate-pulse text-pv text-sm">
-            Redirection en cours vers le formulaire...
-          </div>
-        )}
-      </main>
-
-      {/* Bas de page réservé à JS-INNOV.IA */}
-      <footer className="bg-gray-900 text-gray-300 text-center text-xs py-6 space-y-1 w-full">
-        <p>Application créée par <span className="text-white font-semibold">JS-INNOV.IA</span> (non affiliée aux assurances)</p>
-        <p>Julien Pagin est le seul référencier autorisé pour cette application.</p>
-        <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/mentions-legales" className="underline text-gray-400">Mentions légales</a></p>
-      </footer>
-    </div>
+    <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          name="nom"
+          value={formData.nom}
+          onChange={handleChange}
+          placeholder="Nom"
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="prenom"
+          value={formData.prenom}
+          onChange={handleChange}
+          placeholder="Prénom"
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="tel"
+          name="telephone"
+          value={formData.telephone}
+          onChange={handleChange}
+          placeholder="Téléphone"
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="adresse"
+          value={formData.adresse}
+          onChange={handleChange}
+          placeholder="Adresse"
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="codePostal"
+          value={formData.codePostal}
+          onChange={handleChange}
+          placeholder="Code Postal"
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="ville"
+          value={formData.ville}
+          onChange={handleChange}
+          placeholder="Ville"
+          className="border p-2 rounded"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        className="mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+      >
+        Envoyer
+      </button>
+    </form>
   );
-}
+};
+
+export default IncendieForm;
