@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function IncendiePage() {
   const initialFormData = {
@@ -56,37 +57,44 @@ export default function IncendiePage() {
         <link rel="canonical" href="https://www.tonsite.com/incendie" />
       </Head>
 
-      {/* Carte avec logo PV en fond */}
-      <div className="relative z-10 w-full max-w-xl bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl shadow-2xl p-6">
+      <div className="relative z-10 w-full max-w-xl bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl shadow-2xl overflow-hidden">
+        {/* BANNIÈRE EN HAUT DE LA POPUP */}
+        <div className="w-full">
+          <Image src="/banniere-pv.png" alt="Bannière P&V" width={800} height={200} className="w-full object-cover" />
+        </div>
+
+        {/* LOGO PV EN FOND */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
           <img src="/pv-logo.png" alt="Logo PV" className="w-[400px] h-[400px] object-contain" />
         </div>
 
-        <h1 className="text-xl font-bold text-pv mb-6 text-center relative z-10">Formulaire Assurance Incendie</h1>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 relative z-10">
-          <input type="text" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
-          <input type="text" name="prenom" placeholder="Prénom" value={formData.prenom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
-          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
-          <input type="tel" name="telephone" placeholder="Téléphone" value={formData.telephone} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
-          <input type="text" name="adresse" placeholder="Adresse" value={formData.adresse} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
-          <input type="text" name="codePostal" placeholder="Code Postal" value={formData.codePostal} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
-          <input type="text" name="ville" placeholder="Ville" value={formData.ville} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
+        <div className="relative z-10 p-6">
+          <h1 className="text-xl font-bold text-pv mb-6 text-center">Formulaire Assurance Incendie</h1>
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+            <input type="text" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
+            <input type="text" name="prenom" placeholder="Prénom" value={formData.prenom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
+            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
+            <input type="tel" name="telephone" placeholder="Téléphone" value={formData.telephone} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
+            <input type="text" name="adresse" placeholder="Adresse" value={formData.adresse} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
+            <input type="text" name="codePostal" placeholder="Code Postal" value={formData.codePostal} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
+            <input type="text" name="ville" placeholder="Ville" value={formData.ville} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
 
-          <button type="submit" disabled={isSubmitting} className="bg-pv text-white py-2 px-4 rounded hover:bg-pv-dark">
-            {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
-          </button>
-        </form>
-        {confirmationMessage && (
-          <p className="mt-4 text-center text-sm font-medium text-pv animate-pulse relative z-10">{confirmationMessage}</p>
-        )}
+            <button type="submit" disabled={isSubmitting} className="bg-pv text-white py-2 px-4 rounded hover:bg-pv-dark">
+              {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
+            </button>
+          </form>
+
+          {confirmationMessage && (
+            <p className="mt-4 text-center text-sm font-medium text-pv animate-pulse">{confirmationMessage}</p>
+          )}
+
+          <div className="text-center text-xs text-pv mt-6">
+            <p>Application créée par <strong>JS-INNOV.IA</strong> (non affiliée aux assurances)</p>
+            <p>Julien Pagin est le seul référencier autorisé pour cette application.</p>
+            <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/mentions-legales" className="underline">Mentions légales</a></p>
+          </div>
+        </div>
       </div>
-
-      {/* Footer */}
-      <footer className="mt-10 w-full bg-gray-900 text-gray-300 text-center text-xs py-6">
-        <p>Application créée par <span className="text-white font-semibold">JS-INNOV.IA</span> (non affiliée aux assurances)</p>
-        <p>Julien Pagin est le seul référencier autorisé pour cette application.</p>
-        <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/mentions-legales" className="underline text-gray-400">Mentions légales</a></p>
-      </footer>
     </div>
   );
 }
