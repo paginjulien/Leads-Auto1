@@ -57,7 +57,7 @@ export default function IncendiePage() {
       </Head>
 
       <div className="relative z-10 w-full max-w-xl bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl shadow-2xl overflow-hidden">
-        {/* VIDÉO RONDE À LA PLACE DE LA BANNIÈRE */}
+        {/* VIDÉO RONDE */}
         <div className="w-full flex flex-col items-center justify-center pt-6">
           <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg border-4 border-white">
             <video src="/video-jingle.mp4" autoPlay loop muted className="w-full h-full object-cover" />
@@ -70,7 +70,7 @@ export default function IncendiePage() {
           <img src="/pv-logo.png" alt="Logo PV" className="w-[400px] h-[400px] object-contain" />
         </div>
 
-        <div className="relative z-10 p-6 pb-12">
+        <div className="relative z-10 p-6 pb-16">
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
             <input type="text" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
             <input type="text" name="prenom" placeholder="Prénom" value={formData.prenom} onChange={handleChange} required className="border p-2 rounded bg-white/70" />
@@ -94,16 +94,19 @@ export default function IncendiePage() {
             <p className="mt-1">
               Humain et local, un service à votre écoute. Devis et analyse gratuite afin d'optimiser votre budget et vous protéger efficacement.
             </p>
+            <p className="mt-4 text-xs italic text-pv">Protégez votre habitation à Mons et Dour</p>
           </div>
 
           <div className="mt-6 border-t border-pv pt-4 text-center text-xs text-pv">
+            <img src="/Js-innov.IA.png" alt="JS-INNOV.IA" className="mx-auto w-16 h-auto mb-2" />
             <p>Application créée par <span className="font-semibold text-pv">JS-INNOV.IA</span></p>
-            <p>Julien Pagin est le seul référencier autorisé pour cette application.</p>
+            <p className="text-sm">Julien Pagin – Agence de Dour à votre service 📞 0494/11.90.90</p>
             <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/mentions-legales" className="underline text-pv">Mentions légales</a></p>
+            <p><a href="https://www.pv.be/fr/conditions-generales" className="underline text-pv">Conditions générales</a> – <a href="/Fiche%20Produit%20Ideal%20Habitation.pdf" className="underline text-pv">Fiche produit à consulter</a></p>
+            <button className="mt-2 underline text-pv hover:text-pv-dark text-xs">RGPD</button>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
