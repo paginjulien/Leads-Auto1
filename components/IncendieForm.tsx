@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import LogoJS from '../public/Js-innov.IA.png';
@@ -37,6 +37,17 @@ export default function IncendieForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [validationError, setValidationError] = useState('');
+
+  // 🛡 Neutralisation du code injecté (Sentry, extensions)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        window._sentryDebugIds = {}; // neutralise l’injection
+      } catch (e) {
+        console.warn("Extension injection bloquée :", e);
+      }
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
@@ -157,7 +168,6 @@ export default function IncendieForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10 relative">
-      {/* ✅ Logo P&V en arrière-plan */}
       <div className="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
         <Image src={LogoPV} alt="Logo P&V" width={320} height={320} />
       </div>
@@ -190,7 +200,6 @@ export default function IncendieForm() {
           {success && <p className="text-green-600 text-center text-sm">✅ Envoyé avec succès !</p>}
           {error && <p className="text-red-600 text-center text-sm">❌ Une erreur est survenue</p>}
 
-          {/* ✅ Footer stylisé */}
           <div className="bg-white text-pv text-center py-6 rounded-md mt-6">
             <div className="flex flex-col items-center gap-2">
               <Image src={LogoJS} alt="Logo JS-INNOV.IA" width={80} height={80} className="rounded-full" />
@@ -205,4 +214,3 @@ export default function IncendieForm() {
     </div>
   );
 }
-
