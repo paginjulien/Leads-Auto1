@@ -3,7 +3,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import LogoJS from '../public/Js-innov.IA.png';
-import HeaderImage from '../public/ExtraLarge.jpg';
 
 export default function IncendieForm() {
   const [formData, setFormData] = useState({
@@ -26,6 +25,7 @@ export default function IncendieForm() {
     autrePiece: false,
     salleJeu: false,
     garage: false,
+    nombreGarages: '',
     cave: false
   });
 
@@ -55,11 +55,8 @@ export default function IncendieForm() {
 
   return (
     <div className="relative min-h-screen flex flex-col justify-center items-center bg-white px-4 pt-8 pb-20">
-      <div className="absolute inset-0 opacity-5">
-        <Image src={require('../public/julien logo P&V.png')} alt="Logo P&V" layout="fill" objectFit="contain" />
-      </div>
       <div className="relative z-10 max-w-xl w-full">
-        <Image src={HeaderImage} alt="Maison" className="mx-auto mb-6 rounded shadow-lg w-full h-auto" />
+        <Image src="/ExtraLarge.jpg" alt="Maison" width={800} height={400} className="mx-auto mb-6 rounded shadow-lg w-full h-auto" />
         <h1 className="text-3xl font-bold mb-6 text-[#6b123b] text-center">Demandez votre devis gratuit</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input name="nom" placeholder="Nom" onChange={handleChange} className="border p-2 w-full rounded" />
@@ -72,6 +69,8 @@ export default function IncendieForm() {
             <option value="">Type d'habitation</option>
             <option value="maison">Maison</option>
             <option value="appartement">Appartement</option>
+            <option value="studio">Studio</option>
+            <option value="espace">Espace</option>
           </select>
 
           <label className="block"><input type="checkbox" name="maisonPassive" onChange={handleChange} className="mr-2" />Maison passive</label>
@@ -94,6 +93,14 @@ export default function IncendieForm() {
           <label className="block"><input type="checkbox" name="autrePiece" onChange={handleChange} className="mr-2" />Autre pièce</label>
           <label className="block"><input type="checkbox" name="salleJeu" onChange={handleChange} className="mr-2" />Salle de jeu</label>
           <label className="block"><input type="checkbox" name="garage" onChange={handleChange} className="mr-2" />Garage</label>
+
+          <select name="nombreGarages" onChange={handleChange} className="border p-2 w-full rounded">
+            <option value="">Nombre de garages</option>
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <option key={n} value={n}>{n}</option>
+            ))}
+          </select>
+
           <label className="block"><input type="checkbox" name="cave" onChange={handleChange} className="mr-2" />Cave</label>
 
           <button type="submit" className="bg-[#6b123b] text-white px-6 py-2 rounded w-full">Suivant</button>
@@ -102,11 +109,18 @@ export default function IncendieForm() {
         {success && <p className="text-green-600 mt-4">✅ Envoyé avec succès !</p>}
         {error && <p className="text-red-600 mt-4">❌ Une erreur est survenue</p>}
 
-        <div className="flex justify-center items-center gap-8 mt-10">
-          <Image src={LogoJS} alt="Logo JS InnovIA" width={90} height={90} />
+        <div className="bg-gray-800 text-white mt-10 p-6 rounded-lg text-center">
+          <Image src={LogoJS} alt="Logo JS InnovIA" width={90} height={90} className="mx-auto mb-2" />
+          <p>Application créée par <strong>JS-INNOV.IA</strong></p>
+          <p>Julien Pagin – Agence de Dour à votre service 📞 0494/11.90.90</p>
+          <p className="text-sm">© 2025 Tous droits réservés – <a href="/mentions-legales" className="underline">Mentions légales</a></p>
+          <p className="text-sm">
+            <a href="#" className="underline">Conditions générales</a> – <a href="#" className="underline">Fiche produit à consulter</a>
+          </p>
+          <p className="text-sm">
+            <a href="#" className="underline">RGPD</a>
+          </p>
         </div>
-        <p className="text-xs text-gray-500 text-center mt-2">© 2025 JS Innov.IA - <a href="/mentions-legales" className="underline">Mentions légales</a></p>
-        <p className="text-xs text-gray-400 text-center">Application réalisée par JS Innov.IA</p>
       </div>
     </div>
   );
