@@ -1,38 +1,32 @@
-
+// pages/incendie.js
 import { useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import LogoJS from '../public/Js-innov.IA.png';
-import LogoPV from '../public/pv-logo.png';
-import MaisonImage from '../public/maison-rond.png';
-import HeaderImage from '../public/banniere-pv.png';
+import HeaderImage from '../public/assurance incendie banniere.svg';
 
 export default function IncendieForm() {
-  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
-    naissance: '',
-    adresse: '',
     email: '',
-    telephone: '',
+    adresse: '',
     adresseBien: '',
     typeHabitation: '',
     maisonPassive: false,
     descriptionHabitation: '',
     facades: '',
-    estimationContenu: '',
     sauna: false,
     piscine: false,
+    chambres: '',
     dressing: false,
     chaufferie: false,
     bureau: false,
     veranda: false,
     autrePiece: false,
     salleJeu: false,
-    cave: false,
-    garage: '',
-    chambres: ''
+    garage: false,
+    cave: false
   });
 
   const [success, setSuccess] = useState(false);
@@ -40,15 +34,10 @@ export default function IncendieForm() {
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
-    setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
-  };
-
-  const handleNext = () => {
-    if (step < 2) setStep(step + 1);
-  };
-
-  const handleBack = () => {
-    if (step > 1) setStep(step - 1);
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -58,111 +47,67 @@ export default function IncendieForm() {
       setSuccess(true);
       setError(false);
     } catch (err) {
+      console.error(err);
       setError(true);
       setSuccess(false);
     }
   };
 
-  const inputClass = "border border-gray-300 p-2 w-full rounded-md text-sm text-pv focus:outline-none focus:ring-2 focus:ring-pv";
-
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10 relative">
-      <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
-        <Image src={LogoPV} alt="Logo PV" width={280} height={280} />
+    <div className="relative min-h-screen flex flex-col justify-center items-center bg-white px-4 pt-8 pb-20">
+      <div className="absolute inset-0 opacity-5">
+        <Image src={require('../public/julien logo P&V.png')} alt="Logo P&V" layout="fill" objectFit="contain" />
       </div>
+      <div className="relative z-10 max-w-xl w-full">
+        <Image src={HeaderImage} alt="Maison" className="mx-auto mb-6 rounded shadow-lg w-full h-auto" />
+        <h1 className="text-3xl font-bold mb-6 text-[#6b123b] text-center">Demandez votre devis gratuit</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input name="nom" placeholder="Nom" onChange={handleChange} className="border p-2 w-full rounded" />
+          <input name="prenom" placeholder="Prénom" onChange={handleChange} className="border p-2 w-full rounded" />
+          <input name="email" type="email" placeholder="Email" onChange={handleChange} className="border p-2 w-full rounded" />
+          <input name="adresse" placeholder="Adresse" onChange={handleChange} className="border p-2 w-full rounded" />
+          <input name="adresseBien" placeholder="Adresse du bien à assurer (si différente)" onChange={handleChange} className="border p-2 w-full rounded" />
 
-      <div className="relative z-10 w-full max-w-2xl bg-white bg-opacity-90 rounded-3xl shadow-xl overflow-hidden">
-        <div className="w-full flex justify-center mt-4">
-          <div className="rounded-full border-4 border-white overflow-hidden w-40 h-40 -mt-10 shadow-md">
-            <Image src={MaisonImage} alt="Maison" layout="responsive" />
-          </div>
+          <select name="typeHabitation" onChange={handleChange} className="border p-2 w-full rounded">
+            <option value="">Type d'habitation</option>
+            <option value="maison">Maison</option>
+            <option value="appartement">Appartement</option>
+          </select>
+
+          <label className="block"><input type="checkbox" name="maisonPassive" onChange={handleChange} className="mr-2" />Maison passive</label>
+          <textarea name="descriptionHabitation" placeholder="Description de l'habitation" onChange={handleChange} className="border p-2 w-full rounded" />
+
+          <select name="facades" onChange={handleChange} className="border p-2 w-full rounded">
+            <option value="">Nombre de façades</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+
+          <label className="block"><input type="checkbox" name="sauna" onChange={handleChange} className="mr-2" />Sauna</label>
+          <label className="block"><input type="checkbox" name="piscine" onChange={handleChange} className="mr-2" />Piscine</label>
+          <input name="chambres" type="number" placeholder="Nombre de chambres" onChange={handleChange} className="border p-2 w-full rounded" />
+          <label className="block"><input type="checkbox" name="dressing" onChange={handleChange} className="mr-2" />Dressing</label>
+          <label className="block"><input type="checkbox" name="chaufferie" onChange={handleChange} className="mr-2" />Chaufferie</label>
+          <label className="block"><input type="checkbox" name="bureau" onChange={handleChange} className="mr-2" />Bureau</label>
+          <label className="block"><input type="checkbox" name="veranda" onChange={handleChange} className="mr-2" />Véranda</label>
+          <label className="block"><input type="checkbox" name="autrePiece" onChange={handleChange} className="mr-2" />Autre pièce</label>
+          <label className="block"><input type="checkbox" name="salleJeu" onChange={handleChange} className="mr-2" />Salle de jeu</label>
+          <label className="block"><input type="checkbox" name="garage" onChange={handleChange} className="mr-2" />Garage</label>
+          <label className="block"><input type="checkbox" name="cave" onChange={handleChange} className="mr-2" />Cave</label>
+
+          <button type="submit" className="bg-[#6b123b] text-white px-6 py-2 rounded w-full">Suivant</button>
+        </form>
+
+        {success && <p className="text-green-600 mt-4">✅ Envoyé avec succès !</p>}
+        {error && <p className="text-red-600 mt-4">❌ Une erreur est survenue</p>}
+
+        <div className="flex justify-center items-center gap-8 mt-10">
+          <Image src={LogoJS} alt="Logo JS InnovIA" width={90} height={90} />
         </div>
-
-        <Image src={HeaderImage} alt="Bannière" className="w-full object-cover h-32" />
-
-        <div className="p-6 flex flex-col gap-4 text-pv">
-          {!success ? (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              {step === 1 && (
-                <>
-                  <input name="nom" placeholder="Nom *" onChange={handleChange} className={inputClass} />
-                  <input name="prenom" placeholder="Prénom *" onChange={handleChange} className={inputClass} />
-                  <input name="naissance" type="date" onChange={handleChange} className={inputClass} />
-                  <input name="adresse" placeholder="Adresse *" onChange={handleChange} className={inputClass} />
-                  <input name="email" type="email" placeholder="Email *" onChange={handleChange} className={inputClass} />
-                  <input name="telephone" type="tel" placeholder="Téléphone *" onChange={handleChange} className={inputClass} />
-                </>
-              )}
-
-              {step === 2 && (
-                <>
-                  <input name="adresseBien" placeholder="Adresse du bien à assurer" onChange={handleChange} className={inputClass} />
-                  <select name="typeHabitation" onChange={handleChange} className={inputClass}>
-                    <option value="">Type d'habitation</option>
-                    <option value="maison">Maison</option>
-                    <option value="appartement">Appartement</option>
-                  </select>
-                  <label className="text-sm text-pv">
-                    <input type="checkbox" name="maisonPassive" onChange={handleChange} className="mr-2" />
-                    Maison passive
-                  </label>
-                  <textarea name="descriptionHabitation" placeholder="Description de l'habitation" onChange={handleChange} className={inputClass} />
-                  <select name="facades" onChange={handleChange} className={inputClass}>
-                    <option value="">Nombre de façades</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select>
-                  <input name="estimationContenu" type="number" placeholder="Estimation contenu (€)" onChange={handleChange} className={inputClass} />
-                  <input name="chambres" type="number" placeholder="Nombre de chambres" onChange={handleChange} className={inputClass} />
-                </>
-              )}
-
-              <div className="flex justify-between pt-4">
-                {step > 1 && (
-                  <button type="button" onClick={handleBack} className="bg-gray-200 text-pv px-4 py-2 rounded-md">
-                    Précédent
-                  </button>
-                )}
-                {step < 2 ? (
-                  <button type="button" onClick={handleNext} className="bg-pv text-white px-4 py-2 rounded-md">
-                    Suivant
-                  </button>
-                ) : (
-                  <button type="submit" className="bg-pv text-white px-4 py-2 rounded-md">
-                    Envoyer
-                  </button>
-                )}
-              </div>
-              {error && <p className="text-red-600 text-sm text-center">❌ Une erreur est survenue</p>}
-            </form>
-          ) : (
-            <div className="text-center space-y-3">
-              <p className="text-xl font-semibold text-pv">✅ Merci pour votre demande !</p>
-              <p className="text-sm">Vous recevrez votre devis personnalisé sous 24h.</p>
-              <p className="text-sm">Julien Pagin – Agence de Dour<br/>0494/11.90.90</p>
-              <a href="https://www.pv.be/fr/conditions-generales" className="text-xs underline text-pv/80 hover:text-pv">📄 Conditions générales</a><br/>
-              <a href="/Fiche Produit Ideal Habitation.pdf" className="text-xs underline text-pv/80 hover:text-pv" download>📘 Fiche produit à consulter</a><br/>
-              <a href="/Mentions_Legales.pdf" className="text-xs underline text-pv/80 hover:text-pv" download>📄 Mentions légales</a><br/>
-              <a href="https://calendly.com/julien-pagin/rdv" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline text-sm">📅 Planifiez un rendez-vous en ligne</a>
-            </div>
-          )}
-
-          <div className="bg-[#1f2a3f] text-white text-center py-4 rounded-xl mt-6">
-            <div className="flex flex-col items-center gap-2">
-              <Image src={LogoJS} alt="Logo JS-INNOV.IA" width={80} height={80} className="rounded-full" />
-              <p className="text-sm font-light">Application créée par <strong>JS-INNOV.IA</strong></p>
-            </div>
-          </div>
-        </div>
+        <p className="text-xs text-gray-500 text-center mt-2">© 2025 JS Innov.IA - <a href="/mentions-legales" className="underline">Mentions légales</a></p>
+        <p className="text-xs text-gray-400 text-center">Application réalisée par JS Innov.IA</p>
       </div>
     </div>
   );
 }
-
-<div className="text-center text-xs text-white mt-8">
-  <p>Tous droits réservés – <a href="/mentions-legales" className="underline">Mentions légales RGPD</a></p>
-  <p><a href="https://www.pv.be/fr/conditions-generales" target="_blank" className="underline">Conditions générales</a> – 
-     <a href="/Fiche Produit Ideal Habitation.pdf" target="_blank" className="underline">Fiche produit à consulter</a></p>
-  <p>© 2025</p>
-</div>
