@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import LogoJS from '../public/Js-innov.IA.png';
-import HeaderImage from '../public/assurance incendie banniere.svg';
+import HeaderImage from '../public/ExtraLarge.jpg';
 
 export default function IncendieForm() {
   const [formData, setFormData] = useState({
