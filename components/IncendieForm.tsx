@@ -56,8 +56,8 @@ export default function IncendieForm() {
   return (
     <div className="relative min-h-screen flex flex-col justify-center items-center bg-white px-4 pt-8 pb-20">
       <div className="relative z-10 max-w-xl w-full">
-        <Image src="/ExtraLarge.jpg" alt="Maison" width={800} height={400} className="mx-auto mb-6 rounded shadow-lg w-full h-auto" />
-        <h1 className="text-3xl font-bold mb-6 text-[#6b123b] text-center">Demandez votre devis gratuit</h1>
+        <Image src="/ChatGPT Image 2 juin 2025, 03_16_35.png" alt="Maison" width={800} height={400} className="mx-auto mb-6 rounded shadow-lg w-full h-auto" />
+        <h1 className="text-3xl font-bold mb-6 text-[#6b123b] text-center">Demandez votre DEVIS GRATUIT !</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input name="nom" placeholder="Nom" onChange={handleChange} className="border p-2 w-full rounded" />
           <input name="prenom" placeholder="Prénom" onChange={handleChange} className="border p-2 w-full rounded" />
