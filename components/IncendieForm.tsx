@@ -78,10 +78,10 @@ export default function IncendiePage() {
             <video src="/video-jingle.mp4" autoPlay loop muted className="w-full h-full object-cover" />
             <img src="/maison-icon.png" alt="Maison" className="absolute inset-0 m-auto w-12 h-12 opacity-80" />
           </div>
-          <h2 className="mt-4 text-lg font-bold text-pv">Assurance incendie – votre DEVIS GRATUIT !</h2>
+          <h2 className="mt-4 text-lg font-bold text-[#6b123b]">Assurance incendie – votre DEVIS GRATUIT !</h2>
         </div>
 
-        <div className="absolute inset-x-0 top-36 flex items-center justify-center opacity-10 pointer-events-none z-0">
+        <div className="absolute inset-x-0 top-40 flex items-center justify-center opacity-10 pointer-events-none z-0">
           <img src="/pv-logo.png" alt="Logo PV" className="w-[320px] h-[320px] object-contain" />
         </div>
 
@@ -101,34 +101,33 @@ export default function IncendiePage() {
             <input type="number" name="chambres" placeholder="Nombre de chambres" value={formData.chambres} onChange={handleChange} className="border p-2 rounded bg-white/30" />
             <input type="text" name="garage" placeholder="Nombre de garages" value={formData.garage} onChange={handleChange} className="border p-2 rounded bg-white/30" />
 
-            <button type="submit" disabled={isSubmitting} className="bg-pv text-white py-2 px-4 rounded hover:bg-pv-dark">
+            <button type="submit" disabled={isSubmitting} className="bg-[#6b123b] text-white py-2 px-4 rounded hover:bg-[#5a102e]">
               {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
             </button>
           </form>
 
           {confirmationMessage && (
-            <p className="mt-4 text-center text-sm font-medium text-pv animate-pulse whitespace-pre-line">{confirmationMessage}</p>
+            <p className="mt-4 text-center text-sm font-medium text-[#6b123b] animate-pulse whitespace-pre-line">{confirmationMessage}</p>
           )}
 
           <div className="mt-6 text-center text-sm text-gray-700 leading-relaxed">
-            <p className="font-semibold text-pv">Je vous accompagne avec une solution d’assurance sur mesure</p>
+            <p className="font-semibold text-[#6b123b]">Je vous accompagne avec une solution d’assurance sur mesure</p>
             <p className="mt-1">
               Humain et local, un service à votre écoute. Devis et analyse gratuite afin d'optimiser votre budget et vous protéger efficacement.
             </p>
-            <p className="mt-4 text-xs italic text-pv">Protégez votre habitation à Mons et Dour</p>
+            <p className="mt-4 text-xs italic text-[#6b123b]">Protégez votre habitation à Mons et Dour</p>
           </div>
 
-          <div className="mt-6 border-t border-pv pt-4 text-center text-xs text-white bg-gradient-to-br from-[#6b123b] via-[#7b2c4e] to-[#6b123b] rounded-lg p-4">
-            <img src="/Js-innov.IA.png" alt="JS-INNOV.IA" className="mx-auto w-16 h-16 mb-2 rounded-full" />
+          <div className="mt-6 border-t border-[#6b123b] pt-4 text-center text-xs text-white bg-gradient-to-br from-[#6b123b] via-[#7b2c4e] to-[#6b123b] rounded-lg p-4">
+            <img src="/Js-innov.IA.png" alt="JS-INNOV.IA" className="mx-auto w-20 h-20 mb-2 rounded-full" />
             <p>Application créée par <span className="font-semibold">JS-INNOV.IA</span></p>
             <p className="text-sm">Julien Pagin – Agence de Dour à votre service 📞 0494/11.90.90</p>
             <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/Mentions_Legales.pdf" className="underline">Mentions légales</a></p>
             <p><a href="https://www.pv.be/fr/conditions-generales" className="underline">Conditions générales</a> – <a href="/Fiche%20Produit%20Ideal%20Habitation.pdf" className="underline">Fiche produit à consulter</a></p>
-            <button className="mt-2 underline hover:text-pv-dark text-xs">RGPD</button>
+            <button className="mt-2 underline hover:text-white text-xs">RGPD</button>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
