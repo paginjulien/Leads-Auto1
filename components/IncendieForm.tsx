@@ -10,6 +10,22 @@ export default function IncendiePage() {
     adresse: '',
     codePostal: '',
     ville: '',
+    typeHabitation: '',
+    maisonPassive: false,
+    descriptionHabitation: '',
+    facades: '',
+    estimationContenu: '',
+    sauna: false,
+    piscine: false,
+    dressing: false,
+    chaufferie: false,
+    bureau: false,
+    veranda: false,
+    autrePiece: false,
+    salleJeu: false,
+    cave: false,
+    garage: '',
+    chambres: '',
   };
 
   const [formData, setFormData] = useState({ ...initialFormData });
@@ -17,8 +33,8 @@ export default function IncendiePage() {
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, type, value, checked } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
   const handleSubmit = async (e) => {
@@ -57,21 +73,19 @@ export default function IncendiePage() {
       </Head>
 
       <div className="relative z-10 w-full max-w-xl bg-white/30 backdrop-blur-xl border border-gray-200 rounded-xl shadow-2xl overflow-hidden">
-        {/* VIDÉO RONDE AVEC MAISON */}
         <div className="w-full flex flex-col items-center justify-center pt-6">
           <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg border-4 border-white relative">
             <video src="/video-jingle.mp4" autoPlay loop muted className="w-full h-full object-cover" />
             <img src="/maison-icon.png" alt="Maison" className="absolute inset-0 m-auto w-12 h-12 opacity-80" />
           </div>
-          <h2 className="mt-4 text-lg font-bold text-white bg-pv px-4 py-1 rounded shadow">Assurance incendie – votre DEVIS GRATUIT !</h2>
+          <h2 className="mt-4 text-lg font-bold text-pv">Assurance incendie – votre DEVIS GRATUIT !</h2>
         </div>
 
-        {/* LOGO PV EN FOND LÉGÈREMENT DÉCALÉ */}
-        <div className="absolute inset-x-0 top-16 flex items-center justify-center opacity-10 pointer-events-none z-0">
+        <div className="absolute inset-x-0 top-32 flex items-center justify-center opacity-10 pointer-events-none z-0">
           <img src="/pv-logo.png" alt="Logo PV" className="w-[380px] h-[380px] object-contain" />
         </div>
 
-        <div className="relative z-10 p-6 pb-16">
+        <div className="relative z-10 p-6 pb-16 bg-gradient-to-t from-white via-white/70 to-transparent">
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
             <input type="text" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required className="border p-2 rounded bg-white/30" />
             <input type="text" name="prenom" placeholder="Prénom" value={formData.prenom} onChange={handleChange} required className="border p-2 rounded bg-white/30" />
@@ -80,6 +94,12 @@ export default function IncendiePage() {
             <input type="text" name="adresse" placeholder="Adresse" value={formData.adresse} onChange={handleChange} required className="border p-2 rounded bg-white/30" />
             <input type="text" name="codePostal" placeholder="Code Postal" value={formData.codePostal} onChange={handleChange} required className="border p-2 rounded bg-white/30" />
             <input type="text" name="ville" placeholder="Ville" value={formData.ville} onChange={handleChange} required className="border p-2 rounded bg-white/30" />
+            <input type="text" name="typeHabitation" placeholder="Type d'habitation" value={formData.typeHabitation} onChange={handleChange} className="border p-2 rounded bg-white/30" />
+            <input type="text" name="descriptionHabitation" placeholder="Description" value={formData.descriptionHabitation} onChange={handleChange} className="border p-2 rounded bg-white/30" />
+            <input type="number" name="facades" placeholder="Nombre de façades" value={formData.facades} onChange={handleChange} className="border p-2 rounded bg-white/30" />
+            <input type="number" name="estimationContenu" placeholder="Estimation contenu (€)" value={formData.estimationContenu} onChange={handleChange} className="border p-2 rounded bg-white/30" />
+            <input type="number" name="chambres" placeholder="Nombre de chambres" value={formData.chambres} onChange={handleChange} className="border p-2 rounded bg-white/30" />
+            <input type="text" name="garage" placeholder="Nombre de garages" value={formData.garage} onChange={handleChange} className="border p-2 rounded bg-white/30" />
 
             <button type="submit" disabled={isSubmitting} className="bg-pv text-white py-2 px-4 rounded hover:bg-pv-dark">
               {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
@@ -98,13 +118,13 @@ export default function IncendiePage() {
             <p className="mt-4 text-xs italic text-pv">Protégez votre habitation à Mons et Dour</p>
           </div>
 
-          <div className="mt-6 border-t border-pv pt-4 text-center text-xs text-pv">
+          <div className="mt-6 border-t border-pv pt-4 text-center text-xs text-white bg-pv rounded-lg p-4">
             <img src="/Js-innov.IA.png" alt="JS-INNOV.IA" className="mx-auto w-16 h-16 mb-2 rounded-full" />
-            <p>Application créée par <span className="font-semibold text-pv">JS-INNOV.IA</span></p>
+            <p>Application créée par <span className="font-semibold">JS-INNOV.IA</span></p>
             <p className="text-sm">Julien Pagin – Agence de Dour à votre service 📞 0494/11.90.90</p>
-            <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/Mentions_Legales.pdf" className="underline text-pv">Mentions légales</a></p>
-            <p><a href="https://www.pv.be/fr/conditions-generales" className="underline text-pv">Conditions générales</a> – <a href="/Fiche%20Produit%20Ideal%20Habitation.pdf" className="underline text-pv">Fiche produit à consulter</a></p>
-            <button className="mt-2 underline text-pv hover:text-pv-dark text-xs">RGPD</button>
+            <p>© {new Date().getFullYear()} Tous droits réservés – <a href="/Mentions_Legales.pdf" className="underline">Mentions légales</a></p>
+            <p><a href="https://www.pv.be/fr/conditions-generales" className="underline">Conditions générales</a> – <a href="/Fiche%20Produit%20Ideal%20Habitation.pdf" className="underline">Fiche produit à consulter</a></p>
+            <button className="mt-2 underline hover:text-pv-dark text-xs">RGPD</button>
           </div>
         </div>
       </div>
