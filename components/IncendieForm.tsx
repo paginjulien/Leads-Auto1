@@ -1,47 +1,54 @@
-from pathlib import Path
 
-# Contenu du fichier IncendieForm.tsx final avec les ajustements demandés
-incendie_form_code = """
 import { useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import LogoJS from '../public/Js-innov.IA.png';
 import LogoPV from '../public/pv-logo.png';
+import MaisonImage from '../public/maison-rond.png';
 import HeaderImage from '../public/banniere-pv.png';
-import MaisonImage from '../public/ExtraLarge.jpg';
 
 export default function IncendieForm() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    nom: '', prenom: '', naissance: '', adresse: '', email: '', telephone: '',
-    adresseBien: '', typeHabitation: '', maisonPassive: false,
-    descriptionHabitation: '', facades: '', estimationContenu: '',
-    sauna: false, piscine: false, dressing: false, chaufferie: false, bureau: false,
-    veranda: false, autrePiece: false, salleJeu: false, cave: false,
-    garage: '', chambres: ''
+    nom: '',
+    prenom: '',
+    naissance: '',
+    adresse: '',
+    email: '',
+    telephone: '',
+    adresseBien: '',
+    typeHabitation: '',
+    maisonPassive: false,
+    descriptionHabitation: '',
+    facades: '',
+    estimationContenu: '',
+    sauna: false,
+    piscine: false,
+    dressing: false,
+    chaufferie: false,
+    bureau: false,
+    veranda: false,
+    autrePiece: false,
+    salleJeu: false,
+    cave: false,
+    garage: '',
+    chambres: ''
   });
+
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-  const [validationError, setValidationError] = useState('');
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
 
-  const validateStep1 = () => {
-    const { nom, prenom, naissance, adresse, email, telephone } = formData;
-    if (!nom || !prenom || !naissance || !adresse || !email || !telephone) {
-      setValidationError('Tous les champs marqués sont obligatoires.');
-      return false;
-    }
-    setValidationError('');
-    return true;
+  const handleNext = () => {
+    if (step < 2) setStep(step + 1);
   };
 
-  const handleNext = () => {
-    if (step === 1 && !validateStep1()) return;
-    setStep(step + 1);
+  const handleBack = () => {
+    if (step > 1) setStep(step - 1);
   };
 
   const handleSubmit = async (e) => {
@@ -51,133 +58,111 @@ export default function IncendieForm() {
       setSuccess(true);
       setError(false);
     } catch (err) {
-      console.error(err);
       setError(true);
       setSuccess(false);
     }
   };
 
-  const inputBaseClass = "border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-pv text-sm text-pv";
-
-  const renderStep = () => {
-    switch (step) {
-      case 1:
-        return (
-          <>
-            <input name="nom" placeholder="Nom *" onChange={handleChange} className={inputBaseClass} />
-            <input name="prenom" placeholder="Prénom *" onChange={handleChange} className={inputBaseClass} />
-            <input name="naissance" type="date" placeholder="Date de naissance *" onChange={handleChange} className={inputBaseClass} />
-            <input name="adresse" placeholder="Adresse *" onChange={handleChange} className={inputBaseClass} />
-            <input name="email" type="email" placeholder="Email *" onChange={handleChange} className={inputBaseClass} />
-            <input name="telephone" type="tel" placeholder="Téléphone *" onChange={handleChange} className={inputBaseClass} />
-            {validationError && <p className="text-red-500 text-sm">{validationError}</p>}
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <input name="adresseBien" placeholder="Adresse du bien à assurer" onChange={handleChange} className={inputBaseClass} />
-            <select name="typeHabitation" onChange={handleChange} className={inputBaseClass}>
-              <option value="">Type d'habitation</option>
-              <option value="maison">Maison</option>
-              <option value="appartement">Appartement</option>
-            </select>
-            <textarea name="descriptionHabitation" placeholder="Description de l'habitation" onChange={handleChange} className={inputBaseClass} />
-            <select name="facades" onChange={handleChange} className={inputBaseClass}>
-              <option value="">Nombre de façades</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-            <input name="estimationContenu" type="number" placeholder="Estimation du contenu (€)" onChange={handleChange} className={inputBaseClass} />
-            {[ "sauna", "piscine", "dressing", "chaufferie", "bureau", "veranda", "autrePiece", "salleJeu", "cave"].map(field => (
-              <label key={field} className="block text-sm text-pv">
-                <input type="checkbox" name={field} onChange={handleChange} className="mr-2" />
-                {field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
-              </label>
-            ))}
-            <select name="garage" onChange={handleChange} className={inputBaseClass}>
-              <option value="">Nombre de places de garage</option>
-              {[1,2,3,4,5].map(n => (
-                <option key={n} value={n}>{n} place{n > 1 && 's'}</option>
-              ))}
-            </select>
-            <input name="chambres" type="number" placeholder="Nombre de chambres" onChange={handleChange} className={inputBaseClass} />
-          </>
-        );
-    }
-  };
+  const inputClass = "border border-gray-300 p-2 w-full rounded-md text-sm text-pv focus:outline-none focus:ring-2 focus:ring-pv";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10 relative">
-      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
-        <Image src={LogoPV} alt="Logo P&V" width={320} height={320} />
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10 relative">
+      <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+        <Image src={LogoPV} alt="Logo PV" width={280} height={280} />
       </div>
-      <div className="relative z-10 w-full max-w-xl bg-white/80 rounded-2xl shadow-xl overflow-hidden">
-        <div className="flex justify-center mt-4">
-          <Image src={MaisonImage} alt="Maison" width={100} height={100} className="rounded-full" />
+
+      <div className="relative z-10 w-full max-w-2xl bg-white bg-opacity-90 rounded-3xl shadow-xl overflow-hidden">
+        <div className="w-full flex justify-center mt-4">
+          <div className="rounded-full border-4 border-white overflow-hidden w-40 h-40 -mt-10 shadow-md">
+            <Image src={MaisonImage} alt="Maison" layout="responsive" />
+          </div>
         </div>
-        <h2 className="text-xl text-center font-bold text-pv mt-2">
-          Assurance incendie<br />votre DEVIS GRATUIT !
-        </h2>
-        <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-4 text-pv">
-          {!success && renderStep()}
-          {!success && (
-            <div className={`pt-4 flex ${step === 1 ? 'justify-center' : 'flex-col sm:flex-row justify-between gap-2'}`}>
-              {step > 1 && (
-                <button type="button" onClick={() => setStep(step - 1)} className="bg-gray-200 text-pv px-4 py-2 rounded-md w-full sm:w-auto">
-                  Précédent
-                </button>
+
+        <Image src={HeaderImage} alt="Bannière" className="w-full object-cover h-32" />
+
+        <div className="p-6 flex flex-col gap-4 text-pv">
+          {!success ? (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {step === 1 && (
+                <>
+                  <input name="nom" placeholder="Nom *" onChange={handleChange} className={inputClass} />
+                  <input name="prenom" placeholder="Prénom *" onChange={handleChange} className={inputClass} />
+                  <input name="naissance" type="date" onChange={handleChange} className={inputClass} />
+                  <input name="adresse" placeholder="Adresse *" onChange={handleChange} className={inputClass} />
+                  <input name="email" type="email" placeholder="Email *" onChange={handleChange} className={inputClass} />
+                  <input name="telephone" type="tel" placeholder="Téléphone *" onChange={handleChange} className={inputClass} />
+                </>
               )}
-              {step < 2 ? (
-                <button type="button" onClick={handleNext} className="bg-pv text-white px-4 py-2 rounded-md w-full sm:w-auto">
-                  Suivant
-                </button>
-              ) : (
-                <button type="submit" className="bg-pv text-white px-4 py-2 rounded-md w-full sm:w-auto">
-                  Envoyer
-                </button>
+
+              {step === 2 && (
+                <>
+                  <input name="adresseBien" placeholder="Adresse du bien à assurer" onChange={handleChange} className={inputClass} />
+                  <select name="typeHabitation" onChange={handleChange} className={inputClass}>
+                    <option value="">Type d'habitation</option>
+                    <option value="maison">Maison</option>
+                    <option value="appartement">Appartement</option>
+                  </select>
+                  <label className="text-sm text-pv">
+                    <input type="checkbox" name="maisonPassive" onChange={handleChange} className="mr-2" />
+                    Maison passive
+                  </label>
+                  <textarea name="descriptionHabitation" placeholder="Description de l'habitation" onChange={handleChange} className={inputClass} />
+                  <select name="facades" onChange={handleChange} className={inputClass}>
+                    <option value="">Nombre de façades</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                  <input name="estimationContenu" type="number" placeholder="Estimation contenu (€)" onChange={handleChange} className={inputClass} />
+                  <input name="chambres" type="number" placeholder="Nombre de chambres" onChange={handleChange} className={inputClass} />
+                </>
               )}
+
+              <div className="flex justify-between pt-4">
+                {step > 1 && (
+                  <button type="button" onClick={handleBack} className="bg-gray-200 text-pv px-4 py-2 rounded-md">
+                    Précédent
+                  </button>
+                )}
+                {step < 2 ? (
+                  <button type="button" onClick={handleNext} className="bg-pv text-white px-4 py-2 rounded-md">
+                    Suivant
+                  </button>
+                ) : (
+                  <button type="submit" className="bg-pv text-white px-4 py-2 rounded-md">
+                    Envoyer
+                  </button>
+                )}
+              </div>
+              {error && <p className="text-red-600 text-sm text-center">❌ Une erreur est survenue</p>}
+            </form>
+          ) : (
+            <div className="text-center space-y-3">
+              <p className="text-xl font-semibold text-pv">✅ Merci pour votre demande !</p>
+              <p className="text-sm">Vous recevrez votre devis personnalisé sous 24h.</p>
+              <p className="text-sm">Julien Pagin – Agence de Dour<br/>0494/11.90.90</p>
+              <a href="https://www.pv.be/fr/conditions-generales" className="text-xs underline text-pv/80 hover:text-pv">📄 Conditions générales</a><br/>
+              <a href="/Fiche Produit Ideal Habitation.pdf" className="text-xs underline text-pv/80 hover:text-pv" download>📘 Fiche produit à consulter</a><br/>
+              <a href="/Mentions_Legales.pdf" className="text-xs underline text-pv/80 hover:text-pv" download>📄 Mentions légales</a><br/>
+              <a href="https://calendly.com/julien-pagin/rdv" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline text-sm">📅 Planifiez un rendez-vous en ligne</a>
             </div>
           )}
-          {success && (
-            <div className="text-center text-pv mt-8">
-              <p className="text-lg font-semibold text-green-600">✅ Merci pour votre demande !</p>
-              <p className="mt-2">Recevez votre devis sous 24h. Vous serez contacté par :</p>
-              <p className="mt-2 font-medium">
-                Julien Pagin<br />
-                Technico-commercial / Customer Officer<br />
-                Travaillant au sein de Olivier Trevis Consulting SRL<br />
-                P&V Assurances – Agence de Dour<br />
-                📞 0494/11.90.90
-              </p>
-              <a
-                href="https://calendly.com/ton-lien-rdv"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-4 bg-pv text-white px-6 py-2 rounded-md hover:bg-pv-dark transition"
-              >
-                📅 Prendre rendez-vous en ligne
-              </a>
+
+          <div className="bg-[#1f2a3f] text-white text-center py-4 rounded-xl mt-6">
+            <div className="flex flex-col items-center gap-2">
+              <Image src={LogoJS} alt="Logo JS-INNOV.IA" width={80} height={80} className="rounded-full" />
+              <p className="text-sm font-light">Application créée par <strong>JS-INNOV.IA</strong></p>
             </div>
-          )}
-        </form>
-        <div className="bg-[#1f2937] text-white text-center py-6 rounded-b-2xl mt-4">
-          <div className="flex flex-col items-center gap-2">
-            <Image src={LogoJS} alt="Logo JS-INNOV.IA" width={80} height={80} className="rounded-full" />
-            <p className="text-sm">Application créée par <strong>JS-INNOV.IA</strong></p>
-            <a href="https://www.pv.be/fr/conditions-generales" target="_blank" className="text-xs underline">
-              📄 Conditions Générales
-            </a>
-            <a href="/Mentions_Legales.pdf" target="_blank" className="text-xs underline">
-              📄 Mentions légales
-            </a>
-            <a href="/Fiche Produit Ideal Habitation.pdf" target="_blank" className="text-xs underline">
-              📄 Fiche produit à consulter
-            </a>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+<div className="text-center text-xs text-white mt-8">
+  <p>Tous droits réservés – <a href="/mentions-legales" className="underline">Mentions légales RGPD</a></p>
+  <p><a href="https://www.pv.be/fr/conditions-generales" target="_blank" className="underline">Conditions générales</a> – 
+     <a href="/Fiche Produit Ideal Habitation.pdf" target="_blank" className="underline">Fiche produit à consulter</a></p>
+  <p>© 2025</p>
+</div>
