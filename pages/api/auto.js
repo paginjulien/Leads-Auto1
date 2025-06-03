@@ -1,48 +1,36 @@
-// pages/api/auto.js
-
 import Airtable from 'airtable';
 
-const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base('LEADS AUTO');
+const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      const {
-        nom,
-        prenom,
-        dateNaissance,
-        adresse,
-        email,
-        telephone,
-        vehicule,
-        immatriculation,
-        bonusMalus,
-        sinistres,
-        ancienAssureur,
-        fichier
-      } = req.body;
+  if (req.method !== 'POST') return res.status(405).end();
 
-      const record = await base('Auto').create({
-        Nom: nom,
-        Prénom: prenom,
-        "Date de naissance": dateNaissance,
-        Adresse: adresse,
-        Email: email,
-        Téléphone: telephone,
-        Véhicule: vehicule,
-        Immatriculation: immatriculation,
-        "Bonus/Malus": bonusMalus,
-        Sinistres: sinistres,
-        "Ancien assureur": ancienAssureur,
-        "Fichier joint": fichier ? [{ url: fichier }] : []
-      });
+  const data = req.body;
 
-      res.status(200).json({ success: true, id: record.id });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, error: error.message });
-    }
-  } else {
-    res.status(405).json({ message: 'Méthode non autorisée' });
+  const fields = {
+    nom: data.nom,
+    prenom: data.prenom,
+    dateNaissance: data.dateNaissance,
+    email: data.email,
+    telephone: data.telephone,
+    adresse: data.adresse,
+
+    marque: data.marque,
+    modele: data.modele,
+    annee: data.annee,
+    immatriculation: data.immatriculation,
+    usage: data.usage,
+    typeCouverture: data.typeCouverture,
+
+    accidents: data.accidents,
+    bonusMalus: data.bonusMalus,
+  };
+
+  try {
+    await base('LEADS AUTO').create([{ fields }]);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error('Erreur Airtable :', error);
+    res.status(500).json({ error: 'Erreur lors de l’envoi à Airtable' });
   }
 }
