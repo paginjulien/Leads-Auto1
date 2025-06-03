@@ -63,11 +63,11 @@ export default function IncendiePage() {
             <video src="/video-jingle.mp4" autoPlay loop muted className="w-full h-full object-cover" />
             <img src="/maison-icon.png" alt="Maison" className="absolute inset-0 m-auto w-12 h-12 opacity-80" />
           </div>
-          <h2 className="mt-4 text-lg font-bold text-white drop-shadow-md">Assurance incendie – votre DEVIS GRATUIT !</h2>
+          <h2 className="mt-4 text-lg font-bold text-white bg-pv px-4 py-1 rounded shadow">Assurance incendie – votre DEVIS GRATUIT !</h2>
         </div>
 
-        {/* LOGO PV EN FOND LÉGÈREMENT REMONTÉ */}
-        <div className="absolute inset-x-0 top-2 flex items-center justify-center opacity-10 pointer-events-none z-0">
+        {/* LOGO PV EN FOND LÉGÈREMENT DÉCALÉ */}
+        <div className="absolute inset-x-0 top-16 flex items-center justify-center opacity-10 pointer-events-none z-0">
           <img src="/pv-logo.png" alt="Logo PV" className="w-[380px] h-[380px] object-contain" />
         </div>
 
