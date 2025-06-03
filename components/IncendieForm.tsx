@@ -57,17 +57,18 @@ export default function IncendiePage() {
       </Head>
 
       <div className="relative z-10 w-full max-w-xl bg-white/30 backdrop-blur-xl border border-gray-200 rounded-xl shadow-2xl overflow-hidden">
-        {/* VIDÉO RONDE */}
+        {/* VIDÉO RONDE AVEC MAISON */}
         <div className="w-full flex flex-col items-center justify-center pt-6">
-          <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg border-4 border-white">
+          <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg border-4 border-white relative">
             <video src="/video-jingle.mp4" autoPlay loop muted className="w-full h-full object-cover" />
+            <img src="/maison-icon.png" alt="Maison" className="absolute inset-0 m-auto w-12 h-12 opacity-80" />
           </div>
-          <h2 className="mt-4 text-lg font-bold text-pv">Assurance incendie – votre DEVIS GRATUIT !</h2>
+          <h2 className="mt-4 text-lg font-bold text-white drop-shadow-md">Assurance incendie – votre DEVIS GRATUIT !</h2>
         </div>
 
-        {/* LOGO PV EN FOND */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
-          <img src="/pv-logo.png" alt="Logo PV" className="w-[400px] h-[400px] object-contain" />
+        {/* LOGO PV EN FOND LÉGÈREMENT REMONTÉ */}
+        <div className="absolute inset-x-0 top-2 flex items-center justify-center opacity-10 pointer-events-none z-0">
+          <img src="/pv-logo.png" alt="Logo PV" className="w-[380px] h-[380px] object-contain" />
         </div>
 
         <div className="relative z-10 p-6 pb-16">
