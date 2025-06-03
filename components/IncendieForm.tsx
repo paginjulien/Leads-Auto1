@@ -50,7 +50,7 @@ export default function IncendiePage() {
         body: JSON.stringify(formData),
       });
       if (response.ok) {
-        setConfirmationMessage('✅ Formulaire envoyé avec succès !');
+        setConfirmationMessage("✅ Merci pour votre demande ! Je vous réponds dans les 24h.\nJulien Pagin – 📞 0494/11.90.90");
         setFormData({ ...initialFormData });
       } else {
         setConfirmationMessage('❌ Erreur lors de l\'envoi du formulaire.');
@@ -81,8 +81,8 @@ export default function IncendiePage() {
           <h2 className="mt-4 text-lg font-bold text-pv">Assurance incendie – votre DEVIS GRATUIT !</h2>
         </div>
 
-        <div className="absolute inset-x-0 top-32 flex items-center justify-center opacity-10 pointer-events-none z-0">
-          <img src="/pv-logo.png" alt="Logo PV" className="w-[380px] h-[380px] object-contain" />
+        <div className="absolute inset-x-0 top-36 flex items-center justify-center opacity-10 pointer-events-none z-0">
+          <img src="/pv-logo.png" alt="Logo PV" className="w-[340px] h-[340px] object-contain" />
         </div>
 
         <div className="relative z-10 p-6 pb-16 bg-gradient-to-t from-white via-white/70 to-transparent">
@@ -107,7 +107,7 @@ export default function IncendiePage() {
           </form>
 
           {confirmationMessage && (
-            <p className="mt-4 text-center text-sm font-medium text-pv animate-pulse">{confirmationMessage}</p>
+            <p className="mt-4 text-center text-sm font-medium text-pv animate-pulse whitespace-pre-line">{confirmationMessage}</p>
           )}
 
           <div className="mt-6 text-center text-sm text-gray-700 leading-relaxed">
@@ -118,7 +118,7 @@ export default function IncendiePage() {
             <p className="mt-4 text-xs italic text-pv">Protégez votre habitation à Mons et Dour</p>
           </div>
 
-          <div className="mt-6 border-t border-pv pt-4 text-center text-xs text-white bg-pv rounded-lg p-4">
+          <div className="mt-6 border-t border-pv pt-4 text-center text-xs text-white bg-gradient-to-br from-pv via-pv/80 to-pv rounded-lg p-4">
             <img src="/Js-innov.IA.png" alt="JS-INNOV.IA" className="mx-auto w-16 h-16 mb-2 rounded-full" />
             <p>Application créée par <span className="font-semibold">JS-INNOV.IA</span></p>
             <p className="text-sm">Julien Pagin – Agence de Dour à votre service 📞 0494/11.90.90</p>
