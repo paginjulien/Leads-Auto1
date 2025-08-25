@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import LogoJS from '../public/Js-innov.IA.png';
-import Image from '../public/maisor.png';
+import maisonImage from '../public/maisor.png';
 
 export default function IncendieForm() {
   const [formData, setFormData] = useState({
